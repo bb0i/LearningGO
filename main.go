@@ -1,16 +1,54 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
-	//Go Basics
-	fmt.Println("1. Initialize project by using command:")
-	fmt.Println("	   Go mod init <module path>")
-	fmt.Println("2. GO PROGRAMS ARE ORGANISED INTO PACKAGES:")
-	fmt.Println("		e.g. this code belongs to main package")
-	fmt.Println("3. Declare the entry point to start the project:")
-	fmt.Println("		func main(){<code>} is always the entry point")
-	fmt.Println("4. To run the project use commang: ")
-	fmt.Println("		go run main.go")
+	var conferenceName = "Cyber"
+	const conferenceTickets = 50
+	var remainingTickets uint = 50
+
+	fmt.Printf("welcome to our  %v  conference\n", conferenceName)
+	fmt.Printf("we have %v tickets and %v are still reamaining \n", conferenceTickets, remainingTickets)
+
+	for {
+		//ask user for their name
+		var firstName string
+		var lastName string
+		var userTickets uint
+		var email string
+
+		//using pointers to capture user input
+		fmt.Println("Enter your FIRST name:")
+		fmt.Scan(&firstName)
+		fmt.Println("Enter your Last name:")
+		fmt.Scan(&lastName)
+		fmt.Println("Enter your email address:")
+		fmt.Scan(&email)
+		fmt.Println("Enter number of tickets:")
+		fmt.Scan(&userTickets)
+
+		//Basic logic for booking tickets
+		remainingTickets = remainingTickets - userTickets
+
+		//declaring slices
+		bookings := []string{}
+		bookings = append(bookings, firstName+" "+lastName)
+
+		fmt.Printf("User %v booked %v tickets. You will receive confirmation email at %v \n", firstName, userTickets, email)
+
+		fmt.Printf("%v tickets are remaining from %v \n", remainingTickets, conferenceTickets)
+
+		//printing first name
+		firstNames := []string{}
+		for _, booking := range bookings {
+			var names = strings.Fields(booking)
+			firstNames = append(firstNames, names[0])
+		}
+		fmt.Printf("the first names of bookers are %v \n", firstNames)
+
+	}
 
 }
