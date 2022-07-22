@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strings"
+	//import the helper package from booking-app and not the go default repo
+	"booking-app/helper"
 )
 
 const conferenceTickets int = 50
@@ -19,7 +21,7 @@ func main() {
 		//Gets the user input
 		firstName, lastName, email, userTickets := getUserInput()
 		//Validation of the input
-		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTickets)
+		isValidName, isValidEmail, isValidTicketNumber := helper.ValidateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketNumber {
 			//book tickets
@@ -79,12 +81,7 @@ func getUserInput() (string, string, string, uint) {
 	return firstName, lastName, email, userTickets
 }
 
-func validateUserInput(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool) {
-	isValidName := len(firstName) >= 4 && len(lastName) >= 3
-	isValidEmail := strings.Contains(email, "@")
-	isValidTicketNumber := userTickets > 0 && userTickets <= remainingTickets
-	return isValidName, isValidEmail, isValidTicketNumber
-}
+
 
 func greetUsers() {
 	fmt.Printf("Welcome to %v booking application.\nWe have total of %v tickets and %v are still available.\nGet your tickets here to attend\n", conferenceName, conferenceTickets, remainingTickets)
