@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	//import the helper package from booking-app and not the go default repo
 	"booking-app/helper"
 )
@@ -11,9 +10,16 @@ const conferenceTickets int = 50
 
 var remainingTickets uint = 50
 var conferenceName = "Cyber Conference"
-//creating empty list of maps
+//creating empty list of structs
 // also with intial list(slice) size which is expandable
-var bookings = make([]map[string]string, 0)
+var bookings = make([]UserData, 0)
+
+type UserData struct {
+	firstName string
+	lastName string
+	email string
+	numberOfTickets uint
+}
 
 func main() {
 	//Displays the  welcome message
@@ -57,7 +63,7 @@ func getFirstNames() []string {
 
 	for _, booking := range bookings {
 		
-		firstNames = append(firstNames, booking["firstName"])
+		firstNames = append(firstNames, booking.firstName)
 	}
 	return firstNames
 }
@@ -92,12 +98,13 @@ func greetUsers() {
 func bookTicket(userTickets uint, firstName string, lastName string, email string) {
 	remainingTickets = remainingTickets - userTickets
 
-	//creating a map for user that stores linked values
-	var userData = make(map[string]string)
-	userData["firstname"] =firstName
-	userData["lastname"] = lastName
-	userData["email"]=email
-	userData["numberOfTickets"]= strconv.FormatUint(uint64(userTickets), 10)
+	//creating a structs
+	var userData = UserData{
+		firstName: firstName,
+		lastName: lastName,
+		email: email,
+		numberOfTickets: userTickets,
+	}
 
 
 
@@ -107,3 +114,6 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
 }
+
+
+
